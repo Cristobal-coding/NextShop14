@@ -27,9 +27,9 @@ export default async function CategoryPage({ params, searchParams }: Props) {
     const { gender } = params;
     const page = searchParams.page ? parseInt(searchParams.page) : 1;
 
-    if (!['kid', 'men', 'women'].includes(gender)) {
-        notFound();
-    }
+    // if (!['kid', 'men', 'women'].includes(gender)) {
+    //     notFound();
+    // }
 
     const { products, totalPages } = await getPaginatedProductsWithImages({ page, gender, take: 3 })
     if (products.length === 0) redirect(`/gender/${gender}`)
