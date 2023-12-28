@@ -4,7 +4,7 @@ import { titleFont } from '@/config/fonts'
 import { useCartStore, useUIStore } from '@/store';
 import Link from 'next/link'
 import { useEffect, useState } from 'react';
-import { IoSearchOutline, IoCartOutline } from 'react-icons/io5'
+import { IoSearchOutline, IoCartOutline, IoMenuOutline } from 'react-icons/io5'
 export const TopMenu = () => {
     const openSideMenu = useUIStore(state => state.openSideMenu);
     const totalItemsInCart = useCartStore(state => state.getTotalItems());
@@ -16,7 +16,7 @@ export const TopMenu = () => {
 
 
     return (
-        <nav className='flex px-5 justify-between items-center w-full'>
+        <nav className='flex px-5 py-3 md:py-0 justify-between items-center w-full'>
             <div>
                 <Link href='/'>
                     <span className={`${titleFont.className} antialiased font-bold text-lg`}>Teslo</span>
@@ -47,8 +47,8 @@ export const TopMenu = () => {
                         <IoCartOutline size={25} />
                     </div>
                 </Link>
-                <button onClick={() => openSideMenu()} className='m-2 p-2 rounded-md transition-all hover:bg-gray-100'>
-                    Menú
+                <button onClick={() => openSideMenu()} className='md:m-2 md:p-2 rounded-md transition-all hover:bg-gray-100'>
+                    <IoMenuOutline size={30} />
                 </button>
 
             </div>

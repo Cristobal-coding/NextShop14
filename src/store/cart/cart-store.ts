@@ -12,6 +12,7 @@ interface StateCart {
         total: number;
         itemsInCart: number;
     },
+    findProductInCart: (product: CartProduct) => boolean,
     addProductToCart: (product: CartProduct) => void,
 
     updateProductQuantity: (product: CartProduct, quantity: number) => void,
@@ -52,14 +53,18 @@ export const useCartStore = create<StateCart>()(
                     itemsInCart,
                 }
             },
+            findProductInCart(product: CartProduct) {
+                const { cart } = get();
+                const exist = cart.some(p => p.id === product.id && p.size === product.size);
+                return exist;
+            },
             removeProduct: (product: CartProduct) => {
                 const { cart } = get();
 
                 const deletedCartProducts = cart.filter((item) => (
-                    item.id !== product.id && item.size !== product.size
+                    item.id !== product.id || item.size !== product.size
                 ))
-                console.log(deletedCartProducts);
-                set({ cart: deletedCartProducts })
+                set({ cart: deletedCartProducts });
             },
             updateProductQuantity: (product: CartProduct, quantity: number) => {
                 const { cart } = get();

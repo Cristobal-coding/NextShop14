@@ -15,7 +15,9 @@ interface Props {
 
 export const AddToCart = ({ product }: Props) => {
 
+    const updateProductQuantity = useCartStore(state => state.updateProductQuantity)
     const addProductToCart = useCartStore(state => state.addProductToCart)
+    const findProductInCart = useCartStore(state => state.findProductInCart)
 
     const [size, setSize] = useState<Size | undefined>()
     const [quantity, setQuantity] = useState<number>(1)
@@ -31,9 +33,13 @@ export const AddToCart = ({ product }: Props) => {
             size: size,
             image: product.images[0],
         }
-        addProductToCart(cartProduct)
+        const exist = findProductInCart(cartProduct);
         setQuantity(1)
         setSize(undefined)
+        if (exist) {
+            return updateProductQuantity(cartProduct, quantity)
+        }
+        addProductToCart(cartProduct)
 
 
     }

@@ -59,7 +59,7 @@ export const SizeSelector = ({ setQuantity, selectedSize, availableSizes, onSize
                         >
                             {size}
                             {
-                                items !== 0 && <span className='absolute shadow-sm shadow-blue-500 text-xs rounded-full font-light px-1 -top-2 text-white bg-blue-500 -right-2'>
+                                items !== 0 && <span className='absolute fade-in shadow-sm shadow-blue-500 text-xs rounded-full font-light px-1 -top-2 text-white bg-blue-500 -right-2'>
                                     {items}
                                 </span>}
                         </button>
