@@ -3,6 +3,7 @@
 import { LoadSpinner } from "@/components";
 import { useCartStore } from "@/store";
 import { currencyFormat } from "@/utils";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 
@@ -36,14 +37,17 @@ export const OrdenSummary = () => {
             <span className="font-bold mt-5 text-2xl">Total</span>
             <span className="font-bold mt-5 text-2xl text-right"> {currencyFormat(summary.total)}</span>
 
-            <div className="mt-5 mb-2 col-span-2 ">
-                <button
-                    disabled={!loaded}
-                    className=" btn-primary justify-center w-full"
-                // href={'/checkout/address'}
-                >
-                    Checkout
-                </button>
+            <div className=" w-full mt-5 mb-2 col-span-2 ">
+                {
+                    loaded && (
+                        <Link
+                            className=" btn-primary justify-center  flex items-center"
+                            href={'/checkout/address'}
+                        >
+                            <span>Continuar con la Compra</span>
+                        </Link>
+                    )
+                }
             </div>
 
 

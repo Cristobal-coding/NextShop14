@@ -3,9 +3,11 @@
 import { titleFont } from '@/config/fonts'
 import { useCartStore, useUIStore } from '@/store';
 import Link from 'next/link'
+import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { IoSearchOutline, IoCartOutline, IoMenuOutline } from 'react-icons/io5'
+import { IoSearchOutline, IoCartOutline, IoMenuOutline, IoTriangle } from 'react-icons/io5'
 export const TopMenu = () => {
+    const pathName = usePathname();
     const openSideMenu = useUIStore(state => state.openSideMenu);
     const totalItemsInCart = useCartStore(state => state.getTotalItems());
     const [loaded, setLoaded] = useState(false)
@@ -14,7 +16,7 @@ export const TopMenu = () => {
         setLoaded(true);
     }, [])
 
-
+    console.log(pathName.split('/')[2])
     return (
         <nav className='flex px-5 py-3 md:py-0 justify-between items-center w-full'>
             <div>
@@ -24,9 +26,21 @@ export const TopMenu = () => {
                 </Link>
             </div>
             <div className='hidden sm:block'>
-                <Link className='m-2 p-2 rounded-md transition-all hover:bg-slate-100' href='/category/men'>Hombres</Link>
-                <Link className='m-2 p-2 rounded-md transition-all hover:bg-slate-100' href='/category/women'>Mujeres</Link>
-                <Link className='m-2 p-2 rounded-md transition-all hover:bg-slate-100' href='/category/kid'>Niños</Link>
+                <Link className='menu-item' href='/category/men'>Hombres
+                    {pathName.split('/')[2] === 'men' && <span className='absolute text-xs rounded-full px-1 -bottom-4 left-8 '>
+                        <IoTriangle size={15} className='text-black fade-in' />
+                    </span>}
+                </Link>
+                <Link className='menu-item' href='/category/women'>Mujeres
+                    {pathName.split('/')[2] === 'women' && <span className='absolute text-xs rounded-full px-1 -bottom-4 left-6 '>
+                        <IoTriangle size={15} className='text-black fade-in' />
+                    </span>}
+                </Link>
+                <Link className='menu-item' href='/category/kid'>Niños
+                    {pathName.split('/')[2] === 'kid' && <span className='absolute text-xs rounded-full px-1 -bottom-4 left-5 '>
+                        <IoTriangle size={15} className='text-black fade-in' />
+                    </span>}
+                </Link>
             </div>
 
             <div className='flex items-center'>

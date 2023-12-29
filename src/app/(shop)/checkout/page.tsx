@@ -15,7 +15,7 @@ export default function CheckoutPage() {
         <div className="flex justify-center items-center mb-72 px-10 sm:px-0">
             <div className="flex flex-col w-[1000px]">
 
-                <Title title={"Verificar orden"} />
+                <Title title={"Resumen de la Compra"} />
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
 
                     <div className="flex flex-col ">
@@ -77,7 +77,7 @@ export default function CheckoutPage() {
                             <Link
                                 className="flex btn-primary justify-center"
                                 href={'/orders/1234abc'}>
-                                Colocar Orden
+                                Comprar
                             </Link>
                         </div>
                     </div>

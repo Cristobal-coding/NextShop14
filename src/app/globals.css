@@ -70,3 +70,7 @@ body {
 .btn-secondary {
   @apply bg-gray-200 hover:bg-gray-300 text-black py-2 px-4 rounded transition-all;
 }
+
+.menu-item {
+  @apply relative m-1 py-1 px-2 hover:border-0 rounded-md hover:bg-black fade-in transition-shadow hover:shadow-lg hover:shadow-gray-500 hover:text-white;
+}

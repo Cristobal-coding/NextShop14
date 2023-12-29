@@ -4,6 +4,7 @@ export * from './ui/title/Title'
 export * from './ui/footer/Footer'
 export * from './ui/pagination/Pagination'
 export * from './ui/load-spinner/LoadSpinner'
+export * from './ui/input-form/InputForm'
 
 export * from './products/product-grid/ProductGrid'
 export * from './products/product-grid/ProductGridItem'

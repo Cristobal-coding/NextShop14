@@ -1,4 +1,5 @@
 import brcryptjs from 'bcryptjs';
+import { SeedCountry, countries } from './seed-countries';
 
 interface SeedProduct {
     description: string;
@@ -12,6 +13,7 @@ interface SeedProduct {
     type: ValidTypes;
     gender: 'men' | 'women' | 'kid' | 'unisex'
 }
+
 
 interface SeedUser {
     email: string,
@@ -27,10 +29,12 @@ interface SeedData {
     users: SeedUser[],
     categories: string[],
     products: SeedProduct[],
+    countrys: SeedCountry[],
 }
 
 export const initialData: SeedData = {
 
+    countrys: countries,
     users: [
         { email: 'test@gmail.com', password: brcryptjs.hashSync('123456', 10), name: 'Test1', role: 'user' },
         { email: 'admin1@gmail.com', password: brcryptjs.hashSync('123456', 10), name: 'Administrador', role: 'admin' },
