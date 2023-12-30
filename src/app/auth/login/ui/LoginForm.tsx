@@ -43,7 +43,7 @@ export const LoginForm = () => {
                     </div>
                 )
             }
-            <LoginButton />
+            <LoginButton state={state} />
             {/* divisor l ine */}
             <div className="flex items-center my-5">
                 <div className="flex-1 border-t border-gray-500"></div>
@@ -61,19 +61,21 @@ export const LoginForm = () => {
     )
 }
 
-
-function LoginButton() {
+type StateButtonParam = {
+    state: "Success" | "CredencialeIncorrectas" | "UnknowError" | undefined
+};
+function LoginButton({ state }: StateButtonParam) {
     const { pending } = useFormStatus();
 
     return (
         <button
-            disabled={pending}
+            disabled={pending && state !== 'Success'}
             type='submit'
             className={clsx(
 
                 {
                     'btn-primary': !pending,
-                    'btn-disabled': pending
+                    'btn-disabled': pending && state !== 'Success'
                 }
             )}>
             Ingresar

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { inter } from '@/config/fonts'
-import { Footer, Provider, Sidebar, TopMenu } from '@/components'
+import { Footer, Providers, Sidebar, TopMenu } from '@/components'
 
 
 
@@ -21,7 +21,7 @@ export default async function RootLayout({
 
 
   return (
-    <Provider>
+    <Providers>
       <html lang="es">
         <body className={`${inter.className} min-h-screen`}>
           <TopMenu />
@@ -32,6 +32,6 @@ export default async function RootLayout({
           <Footer />
         </body>
       </html>
-    </Provider>
+    </Providers>
   )
 }

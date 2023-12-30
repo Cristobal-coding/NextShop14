@@ -16,7 +16,6 @@ export const TopMenu = () => {
         setLoaded(true);
     }, [])
 
-    console.log(pathName.split('/')[2])
     return (
         <nav className='flex px-5 py-3 md:py-0 justify-between items-center w-full'>
             <div>

@@ -17,6 +17,7 @@ interface StateCart {
 
     updateProductQuantity: (product: CartProduct, quantity: number) => void,
     removeProduct: (product: CartProduct) => void,
+    clearCart: () => void;
 }
 
 export const useCartStore = create<StateCart>()(
@@ -24,6 +25,9 @@ export const useCartStore = create<StateCart>()(
     persist(
         (set, get) => ({
             cart: [],
+            clearCart: () => {
+                set({ cart: [] })
+            },
             getTotalItems: () => {
                 const { cart } = get();
                 return cart.reduce((total, item) => total + item.quantity, 0)
@@ -33,7 +37,6 @@ export const useCartStore = create<StateCart>()(
                 const { cart } = get();
 
                 const quantity = cart.find(p => p.size === size && p.id === id)?.quantity ?? 0;
-                console.log(quantity);
                 return quantity;
             },
             getSummaryInformation: () => {

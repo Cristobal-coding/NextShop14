@@ -1,111 +1,129 @@
-import { QuantitySelector, Title } from "@/components";
+import { getOrderById } from "@/actions";
+import { PaidButton, PayPalButton, Summary, Title } from "@/components";
 import { titleFont } from "@/config/fonts";
-import { initialData } from "@/seed/seed";
+import { CartProduct, IAddress } from "@/interfaces";
+import { Order } from "@prisma/client";
 import clsx from "clsx";
 import Image from "next/image";
-import Link from "next/link";
-import { IoCardOutline, IoCartOutline } from "react-icons/io5";
+import { redirect } from "next/navigation";
+import { FaMapMarkerAlt } from "react-icons/fa";
+import { IoCallSharp, IoCardOutline } from "react-icons/io5";
 
-const productsInCart = [
-    initialData.products[0],
-    initialData.products[1],
-    initialData.products[2],
-];
 
 interface Props {
     params: { id: string }
 }
 
-export default function OrderPage({ params }: Props) {
+interface OrderData {
+    products: CartProduct[] | null,
+    address: IAddress | null,
+    order: Order | null,
+}
+
+export default async function OrderPage({ params }: Props) {
     const { id } = params;
+
+    const { order } = await getOrderById(id)
+
+    if (!order) {
+        redirect('/orders')
+    }
+
+    const address = order!.orderAddress;
 
     return (
         <div className="flex justify-center items-center mb-72 px-10 sm:px-0">
             <div className="flex flex-col w-[1000px]">
 
-                <Title title={`Orden #${id}`} />
+                <Title title={`Orden #${id.split('-').at(-1)}`} />
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
 
 
 
                     <div className="flex flex-col ">
-                        <div className={
-                            clsx(
-                                'flex items-center rounded-lg py-2 px-3.5 text-xs font-bold text-white mb-5',
-                                {
-                                    'bg-red-500': false,
-                                    'bg-green-700': true,
-                                }
-                            )
-                        }>
-                            <IoCardOutline size={30} />
-                            {/* <span className="mx-2">Pendiente de Pago</span> */}
-                            <span className="mx-2">Pagada</span>
-                        </div>
+                        <PaidButton isPaid={order.isPaid} />
                         {
-                            productsInCart.map(p => (
-                                <div key={p.slug} className="flex mb-8">
-                                    <Image
-                                        src={`/products/${p.images[0]}`}
-                                        width={100}
-                                        height={100}
-                                        alt={p.title}
-                                        style={{
-                                            width: '100px',
-                                            height: '100px',
-                                        }}
-                                        className="mr-5  rounded shadow-md"
-                                    />
-                                    <div>
-                                        <p className={`${titleFont.className} antialiased`}>{p.title}</p>
-                                        <p >${p.price} x 3</p>
-                                        <p className="font-bold">Subtotal:${p.price * 3}</p>
-
+                            order.orderItems?.map(p =>
+                            (<div key={`${p.product.slug}-${p.size}`} className="flex mb-8">
+                                <Image
+                                    src={`/products/${p.product.productImages[0].url}`}
+                                    width={100}
+                                    height={100}
+                                    alt={p.product.title}
+                                    style={{
+                                        width: '100px',
+                                        height: '100px',
+                                    }}
+                                    className="mr-1 md:mr-5  rounded shadow-md"
+                                />
+                                <div className='w-full'>
+                                    <p className={`${titleFont.className} antialiased`}>{p.product.title}</p>
+                                    <div className='flex justify-between  mt-1'>
+                                        <p className='font-bold'>
+                                            Precio:
+                                            <span className='ml-2 font-light antialiased'>${p.price}</span>
+                                        </p>
+                                        <span className=" max-w-28 inline-flex md:ml-5 bg-blue-500 text-white text-xs font-medium items-center px-2.5 py-0.5 rounded ">
+                                            {/* <IoCheckboxOutline className='mr-1' /> */}
+                                            {`x ${p.quantity} Unidades`}
+                                        </span>
                                     </div>
+                                    <div className='flex justify-between mt-2'>
+                                        <p className='font-bold'>
+                                            Subtotal:
+                                            <span className='ml-2 font-light antialiased'>${p.price * p.quantity}</span>
+                                        </p>
+                                        <p className='font-bold'>
+                                            Talla:
+                                            <span className='ml-2 font-light antialiased'>{p.size}</span>
+                                        </p>
+                                    </div>
+
                                 </div>
-                            ))
+                            </div>)
+                            )
                         }
                     </div>
 
                     <div className="flex flex-col bg-white rounded-xl shadow-xl p-7">
                         <h2 className="text-2xl mb-2">Dirección de Entrega</h2>
-                        <div className="mb-10 ">
-                            <p className="font-bold text-xl">Cristobal Herrera</p>
-                            <p>Reñaca, Viña del Mar</p>
-                            <p>Region de Valparaiso</p>
+                        <div className="mb-5 ">
+                            <p className="text-xl font-bold">
+                                {address?.firstName} {address?.lastName}
+                            </p>
+                            <p className="flex items-center"><FaMapMarkerAlt className={'mr-1'} />  {address?.address}</p>
+                            <p className="ml-5">{address?.address2}</p>
+                            <p className="ml-5">{address?.postalCode}</p>
+                            <p className="ml-5">
+                                {address?.city}, {address?.country.name}
+                            </p>
+                            <p className="flex items-center gap-2 ml-5">
+                                {address?.phone}
+                                <IoCallSharp />
+                            </p>
                         </div>
-                        <div className="w-full h-0.5 rounded bg-gray-200 mb-10" />
+                        <div className="w-full h-0.5 rounded bg-gray-200 mb-5" />
                         <h2 className="text-2xl mb-2">Resumen de orden</h2>
 
-
                         <div className="grid grid-cols-2">
-                            <span >Nro. Productos</span>
-                            <span className="text-right">3 artículos</span>
 
-                            <span >Subtotal</span>
-                            <span className="text-right">$ 100</span>
-
-                            <span >Impuesto 19%</span>
-                            <span className="text-right">$ 100</span>
-
-                            <span className="font-bold mt-5 text-2xl">Total</span>
-                            <span className="font-bold mt-5 text-2xl text-right">$ 100</span>
+                            <Summary order={order} />
                         </div>
 
                         <div className="mt-5 mb-2 w-full ">
-                            <div className={
-                                clsx(
-                                    'flex items-center rounded-lg py-2 px-3.5 text-xs font-bold text-white mb-5',
-                                    {
-                                        'bg-red-500': false,
-                                        'bg-green-700': true,
-                                    }
-                                )
-                            }>
-                                <IoCardOutline size={30} />
-                                {/* <span className="mx-2">Pendiente de Pago</span> */}
-                                <span className="mx-2">Pagada</span>
-                            </div>
+                            {
+                                !order.isPaid
+                                    ? (
+
+                                        <PayPalButton
+                                            amount={order.total}
+                                            orderId={order.id}
+                                        />
+                                    )
+                                    : <PaidButton isPaid={order.isPaid} />
+                            }
+
+
                         </div>
                     </div>
 

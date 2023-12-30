@@ -11,17 +11,17 @@ export const useAddressStore = create<AddressState>()(
     persist(
 
         (set, get) => ({
-            address: {},
-            // address: {
-            //     firstName: undefined,
-            //     lastName: undefined,
-            //     address: undefined,
-            //     address2: undefined,
-            //     postalCode: undefined,
-            //     city: undefined,
-            //     country: undefined,
-            //     phone: undefined,
-            // },
+            // address: {},
+            address: {
+                firstName: '',
+                lastName: '',
+                address: '',
+                address2: '',
+                postalCode: '',
+                city: '',
+                country: '',
+                phone: '',
+            },
             setAddress: (address) => {
                 set({ address })
             }
