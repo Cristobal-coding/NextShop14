@@ -1,4 +1,5 @@
-import type { CartProduct, Size } from "@/interfaces";
+import type { CartProduct } from "@/interfaces";
+import { Size } from "@prisma/client";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 

@@ -14,15 +14,16 @@ export const StockLabel = ({ slug }: Props) => {
     const [stock, setStock] = useState(0)
     const [isLoading, setisLoading] = useState(true)
     useEffect(() => {
+        const getStock = async () => {
+            const stock = await getStockBySlug(slug);
+            setStock(stock)
+            setisLoading(false)
+        }
         getStock();
-    }, [])
+    }, [slug])
 
 
-    const getStock = async () => {
-        const stock = await getStockBySlug(slug);
-        setStock(stock)
-        setisLoading(false)
-    }
+
 
     return (
         <div className="flex">

@@ -1,8 +1,9 @@
 'use server'
 
 import { auth } from "@/auth.config"
-import { IAddress, Size } from "@/interfaces"
+import { IAddress } from "@/interfaces"
 import prisma from '@/lib/prisma';
+import { Size } from "@prisma/client";
 
 interface ProductToOrder {
     productId: string,

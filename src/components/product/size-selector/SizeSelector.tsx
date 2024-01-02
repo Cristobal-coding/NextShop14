@@ -1,8 +1,8 @@
 'use client';
 
 import { LoadSpinner } from '@/components';
-import type { Size } from '@/interfaces'
 import { useCartStore } from '@/store';
+import { Size } from '@prisma/client';
 import clsx from 'clsx'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
