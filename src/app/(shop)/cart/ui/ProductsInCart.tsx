@@ -1,6 +1,6 @@
 'use client';
 
-import { LoadSpinner, QuantitySelector } from "@/components";
+import { LoadSpinner, QuantitySelector, ProductImage } from '@/components';
 import { titleFont } from "@/config/fonts";
 import { useCartStore } from "@/store";
 import Image from "next/image";
@@ -32,8 +32,8 @@ export const ProductsInCart = () => {
             {
                 productsInCart.map(p => (
                     <div key={`${p.slug}-${p.size}`} className="flex mb-8 fade-in ">
-                        <Image
-                            src={`/products/${p.image}`}
+                        <ProductImage
+                            src={p.image}
                             width={100}
                             height={100}
                             alt={p.title}

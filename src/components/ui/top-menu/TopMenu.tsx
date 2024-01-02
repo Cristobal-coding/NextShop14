@@ -17,7 +17,7 @@ export const TopMenu = () => {
     }, [])
 
     return (
-        <nav className='flex px-5 py-3 md:py-0 justify-between items-center w-full'>
+        <nav className='flex px-5 bg-white shadow-md py-4 md:py-0 justify-between items-center w-full'>
             <div>
                 <Link href='/'>
                     <span className={`${titleFont.className} antialiased font-bold text-lg`}>Teslo</span>

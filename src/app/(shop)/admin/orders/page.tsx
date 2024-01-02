@@ -1,28 +1,26 @@
-export const revalidate = 0;
-import { getOrdersByUser } from '@/actions';
-import { Title } from '@/components';
+import { getPaginatedOrders } from "@/actions";
+import { Title } from "@/components";
+import Link from "next/link";
+import { redirect } from "next/navigation";
+import { IoArrowRedoCircleOutline, IoCardOutline } from "react-icons/io5";
 
-import Link from 'next/link';
-import { redirect } from 'next/navigation';
-import { IoArrowRedoCircleOutline, IoCardOutline } from 'react-icons/io5';
+export default async function AdminsOrdersPage() {
 
-export default async function OrdersPage() {
-
-    const { orders = [], ok } = await getOrdersByUser();
-
+    const { ok, orders = [] } = await getPaginatedOrders();
     if (!ok) {
-        redirect('/auth/login?redirectTo=/orders')
+        redirect('/auth/login');
     }
+
     return (
         <>
-            <Title title="Orders" />
 
-            <div className="mb-10">
-                <table className="min-w-full">
+            <div className="inline-flex flex-col items-center mb-10 w-full">
+                <Title title="Todas las Ordenes" />
+                <table className="w-full sm:w-5/6 lg:w-2/3 ">
                     <thead className="bg-gray-200 border-b">
                         <tr>
                             <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                #ID
+                                #Id
                             </th>
                             <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                 Nombre completo

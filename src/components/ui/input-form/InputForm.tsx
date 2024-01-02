@@ -6,7 +6,7 @@ interface Props {
     register: UseFormRegister<any>,
     label: string,
     name: string,
-    type: 'password' | 'text' | 'email'
+    type: 'password' | 'text' | 'email' | 'number'
     message?: string,
     errors: FieldErrors<any>
 }
@@ -22,10 +22,10 @@ export const InputForm = ({ register, name, label, type, message, errors }: Prop
             </label>
             <input
                 {...register(name, { required: message })}
-                className={clsx("px-5 py-2 border shadow-md transition-all  bg-gray-200 rounded mb-5 outline-none",
+                className={clsx("form-input",
                     {
-                        'focus:shadow-blue-300 fade-in': !errors[name],
-                        'border-red-500 focus:shadow-red-300  focus:border-red-500 focus:ring-1 focus:ring-red-500': errors[name]
+                        'form-focus': !errors[name],
+                        'form-error-focus': errors[name]
                     }
                 )}
                 type={type}

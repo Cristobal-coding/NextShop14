@@ -74,3 +74,15 @@ body {
 .menu-item {
   @apply relative m-1 py-1 px-2 hover:border-0 rounded-md hover:bg-black fade-in transition-shadow hover:shadow-lg hover:shadow-gray-500 hover:text-white;
 }
+
+.form-input {
+  @apply px-5 py-2 border shadow-md transition-all bg-gray-200 rounded mb-5 outline-none;
+}
+
+.form-focus {
+  @apply focus:shadow-blue-300 fade-in
+}
+
+.form-error-focus {
+  @apply border-red-500 focus:shadow-red-300 focus:border-red-500 focus:ring-1 focus:ring-red-500
+}

@@ -4,10 +4,11 @@
 import { QuantitySelector, SizeSelector } from '@/components'
 import { Product } from '@/interfaces'
 import { useState } from 'react'
-import { CartProduct, Size } from '@/interfaces';
+import { CartProduct } from '@/interfaces';
 import clsx from 'clsx';
 import { titleFont } from '@/config/fonts';
 import { useCartStore } from '@/store';
+import { Size } from '@prisma/client';
 
 interface Props {
     product: Product,
